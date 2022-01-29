@@ -1,0 +1,117 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Simple calculator API",
+    "description" : "This is a simple API for a calculator",
+    "contact" : {
+      "email" : "Ateretrabi@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/ateretrabi/WebCalculator/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "admins",
+    "description" : "Secured Admin-only calls"
+  }, {
+    "name" : "developers",
+    "description" : "Operations available to regular developers"
+  } ],
+  "paths" : {
+    "/Login" : {
+      "post" : {
+        "summary" : "Login the user",
+        "description" : "login the user",
+        "operationId" : "login",
+        "requestBody" : {
+          "description" : "the user model",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserModel"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success login"
+          },
+          "400" : {
+            "description" : "Fail to login"
+          }
+        }
+      }
+    },
+    "/Calculate" : {
+      "post" : {
+        "summary" : "Calculate an expression",
+        "description" : "calculates the expression",
+        "operationId" : "calculate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Calculation"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Calculation succeeded"
+          },
+          "400" : {
+            "description" : "Fail to calculate"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "UserModel" : {
+        "required" : [ "password", "username" ],
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string",
+            "example" : "Admin"
+          },
+          "password" : {
+            "type" : "string",
+            "example" : "Admin"
+          }
+        }
+      },
+      "Calculation" : {
+        "required" : [ "authentication", "firstNumber", "operator", "secondNumber" ],
+        "type" : "object",
+        "properties" : {
+          "firstNumber" : {
+            "type" : "number",
+            "example" : 5
+          },
+          "secondNumber" : {
+            "type" : "number",
+            "example" : 9
+          },
+          "authentication" : {
+            "type" : "string",
+            "example" : "abc123"
+          },
+          "operator" : {
+            "type" : "string",
+            "enum" : [ "add", "subtract", "multiply", "divide" ]
+          }
+        }
+      }
+    }
+  }
+}
